@@ -1,125 +1,15 @@
 %!TEX program = lualatex
-\documentclass[12pt]{extarticle}
+\documentclass[11pt]{extarticle}
 
-% --------- ПОЛЯ ---------
-\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+% --- ПРЕАМБУЛА ---
+\input{include/settings.tex}
 
-% --------- ЯЗЫКИ ---------
-\usepackage{polyglossia}
-\setdefaultlanguage{russian}
-\setotherlanguage{english}
-
-% --------- ШРИФТЫ ---------
-\usepackage{fontspec}
-
-\setmainfont{CMU Serif}
-\setsansfont{CMU Sans Serif}
-\setmonofont{CMU Typewriter Text}
-
-\newfontfamily\OpenSans{Open Sans}[Ligatures=TeX, Scale=1.05]
-
-% --------- ИНТЕРВАЛЫ / ВЫРАВНИВАНИЕ ---------
-\usepackage{setspace}
-\onehalfspacing
-
-\usepackage{ragged2e}
-\justifying
-
-% --------- ПЕРЕНОСЫ ВЫКЛ ---------
-\usepackage[none]{hyphenat}
-\hyphenpenalty=10000
-\exhyphenpenalty=10000
-\emergencystretch=1em
-
-% --------- ЦВЕТА / ССЫЛКИ ---------
-\usepackage{xcolor}
-\definecolor{handbookblue}{HTML}{003366}
-\definecolor{linkorange}{HTML}{E67E22}
-
-\usepackage[hidelinks]{hyperref}
-
-% --------- ОГЛАВЛЕНИЕ ---------
-\usepackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\sffamily\bfseries\Huge}
-\renewcommand{\cftaftertoctitle}{\par\vskip1em}
-\renewcommand{\cftsecfont}{\sffamily\bfseries}
-\renewcommand{\cftsecpagefont}{\sffamily\bfseries}
-\setlength{\cftbeforesecskip}{0.5em}
-\setlength{\cftsecindent}{0pt}
-\setlength{\cftsecnumwidth}{0pt}
-\renewcommand{\cftsecleader}{\hfill}
-
-% --------- ЗАГОЛОВКИ КАК «ССЫЛКИ» ПО ЦЕНТРУ ---------
-\usepackage{titlesec}
-\titleformat{\section}
-  {\OpenSans\normalsize\bfseries\centering}
-  {}
-  {0pt}
-  {}
-\titlespacing*{\section}{0pt}{1.5ex plus 0.5ex}{1ex plus 0.2ex}
-
-% --------- КОЛОНТИТУЛЫ / НАВИГАЦИЯ ---------
-\usepackage{fancyhdr}
-\pagestyle{plain}
-
-% базовый стиль
-\newcommand{\SetDefaultHeader}{%
-  \fancyhf{}%
-  \fancyfoot[C]{\thepage}%
-  \renewcommand{\headrulewidth}{0.4pt}%
-}
-
-% ЛЕВАЯ ЧАСТЬ: название раздела (или вопроса),
-% ПРАВАЯ ЧАСТЬ: две кнопки – Назад / К содержанию
-% #1 — текст слева (название блока или вопрос),
-% #2 — label страницы с ТЕМАМИ раздела (для "Назад к разделу")
-\newcommand{\SetQuestionHeader}[2]{%
-  \fancyhf{}%
-  \fancyfoot[C]{\thepage}%
-  \renewcommand{\headrulewidth}{0.4pt}%
-  \fancyhead[C]{%
-    \makebox[\textwidth]{%
-      \parbox[t]{0.5\textwidth}{%
-        \raggedright\small #1%
-      }%
-      \parbox[t]{0.5\textwidth}{%
-        \raggedleft\small
-        \textcolor{linkorange}{\hyperref[#2]{Назад к разделу}}\\[-0.2em]
-        \textcolor{linkorange}{\hyperref[toc-anchor]{К содержанию}}%
-      }%
-    }%
-  }%
-}
-
-% ---------------- ДОКУМЕНТ ----------------
 \begin{document}
 
-% --------- ТИТУЛЬНИК ---------
-\begin{titlepage}
-    \pagecolor{handbookblue}
-    \color{white}
-    \centering
+% --- ТИТУЛЬНИК ---
+\input{title.tex}
 
-    {\large
-    РУДН\\
-    Экономический факультет\\
-    38.04.08 «Финансы и кредит»\\
-    «Современные финансовые технологии в инвестировании\\
-    и банковском бизнесе»\\[10em]
-    }
-
-    {\Huge\textbf{ХЭНДБУК}\\[0.5em]
-     {\Large\textbf{ДЛЯ ГИА}}\\[4em]
-    }
-
-    {\normalsize Москва, 2025}
-
-\end{titlepage}
-
-\nopagecolor
-\color{black}
-
-% --------- ОГЛАВЛЕНИЕ (якорь для "К содержанию") ---------
+% --- ОГЛАВЛЕНИЕ ---
 \clearpage
 \pagestyle{fancy}
 \SetDefaultHeader
@@ -129,135 +19,16 @@
 \tableofcontents
 \clearpage
 
-% --------- ТЕОРЕТИЧЕСКАЯ ЧАСТЬ: КЛИКАБЕЛЬНЫЙ ЛИСТ ---------
-\SetDefaultHeader
-\section*{ТЕОРМИН \\ Теоретическая часть}
-\phantomsection
-\addcontentsline{toc}{section}{ТЕОРМИН Теоретическая часть}
-\label{sec:theory}
+% --- ТЕОРМИН Теоретическая часть ---
+\input{include/theory_intro.tex}
 
-\textbf{Основная часть государственного экзамена:}
-\begin{enumerate}
-  \item \textcolor{linkorange}{\hyperref[topics:finmk]{Финансовые рынки и финансово-кредитные институты}}
-  \item \textcolor{linkorange}{\hyperref[topics:std]{Международные стандарты управления банковской деятельностью}}
-  \item \textcolor{linkorange}{\hyperref[topics:strat]{Стратегии и современная модель управления в сфере денежно-кредитных отношений}}
-  \item \textcolor{linkorange}{\hyperref[topics:port]{Управление инвестиционным портфелем}}
-  \item \textcolor{linkorange}{\hyperref[topics:fe]{Финансовый инжиниринг}}
-  \item \textcolor{linkorange}{\hyperref[topics:val]{Оценка и управление стоимостью банка}}
-  \item \textcolor{linkorange}{\hyperref[topics:inv]{Инвестиционный менеджмент}}
-\end{enumerate}
-
-\clearpage
-
-% ======================================================
-% 1. ФИНАНСОВЫЕ РЫНКИ И ФК ИНСТИТУТЫ
-% ======================================================
-
-% --- Лист: предмет + темы ---
-\SetDefaultHeader
-\section*{Финансовые рынки и финансово-кредитные институты}
-\phantomsection
-\addcontentsline{toc}{section}{Финансовые рынки и финансово-кредитные институты}
-\label{topics:finmk}
-
-\textbf{Темы (вопросы):}
-\begin{enumerate}
-  \item \hyperref[q:finmk:01]{Финансовый рынок: структура и его роль в экономике.}
-  \item \hyperref[q:finmk:02]{Международные финансовые рынки. Особенности развития в современных условиях.}
-  \item \hyperref[q:finmk:03]{Инфраструктура финансового рынка и её основные составляющие.}
-  \item \hyperref[q:finmk:04]{Классификация финансово-кредитных институтов.}
-  \item \hyperref[q:finmk:05]{Особенности деятельности финансово-кредитных институтов на финансовых рынках.}
-  \item \hyperref[q:finmk:06]{Банки как основные участники рынка кредитных ресурсов.}
-  \item \hyperref[q:finmk:07]{Институциональные инвесторы: паевые и акционерные фонды, негосударственные пенсионные фонды.}
-  \item \hyperref[q:finmk:08]{Регулирование профессиональной деятельности участников финансового рынка.}
-  \item \hyperref[q:finmk:09]{Роль Центрального банка в регулировании финансового рынка.}
-  \item \hyperref[q:finmk:10]{Рынок золота как особый сегмент финансового рынка.}
-  \item \hyperref[q:finmk:11]{Механизм функционирования рынка золота.}
-  \item \hyperref[q:finmk:12]{Валютный рынок и валютные операции. Конвертируемость валют.}
-  \item \hyperref[q:finmk:13]{Влияние динамики валютного курса на экономику.}
-  \item \hyperref[q:finmk:14]{Мировые финансовые центры: классификация и их характеристика.}
-\end{enumerate}
-
-\clearpage
-
-% --- Пример листа с вопросами для этого блока ---
-\SetQuestionHeader{Финансовые рынки и финансово-кредитные институты}{topics:finmk}
-\section*{Финансовые рынки и финансово-кредитные институты: вопросы}
-\begin{enumerate}
-  \item \label{q:finmk:01} Финансовый рынок: структура и его роль в экономике.
-  \item \label{q:finmk:02} Международные финансовые рынки. Особенности развития в современных условиях.
-  \item \label{q:finmk:03} Инфраструктура финансового рынка и её основные составляющие.
-  \item \label{q:finmk:04} Классификация финансово-кредитных институтов.
-  \item \label{q:finmk:05} Особенности деятельности финансово-кредитных институтов на финансовых рынках.
-  \item \label{q:finmk:06} Банки как основные участники рынка кредитных ресурсов.
-  \item \label{q:finmk:07} Институциональные инвесторы: паевые и акционерные фонды, негосударственные пенсионные фонды.
-  \item \label{q:finmk:08} Регулирование профессиональной деятельности участников финансового рынка.
-  \item \label{q:finmk:09} Роль Центрального банка в регулировании финансового рынка.
-  \item \label{q:finmk:10} Рынок золота как особый сегмент финансового рынка.
-  \item \label{q:finmk:11} Механизм функционирования рынка золота.
-  \item \label{q:finmk:12} Валютный рынок и валютные операции. Конвертируемость валют.
-  \item \label{q:finmk:13} Влияние динамики валютного курса на экономику.
-  \item \label{q:finmk:14} Мировые финансовые центры: классификация и их характеристика.
-\end{enumerate}
-
-\clearpage
-
-% ======================================================
-% 2. МЕЖДУНАРОДНЫЕ СТАНДАРТЫ УПРАВЛЕНИЯ БАНКОВСКОЙ ДЕЯТЕЛЬНОСТЬЮ
-% ======================================================
-
-% --- Лист: предмет + темы ---
-\SetDefaultHeader
-\section*{Международные стандарты управления банковской деятельностью}
-\phantomsection
-\addcontentsline{toc}{section}{Международные стандарты управления банковской деятельностью}
-\label{topics:std}
-
-\textbf{Темы (вопросы):}
-\begin{enumerate}
-  \item Микропруденциальное и макропруденциальное регулирование банковской деятельности: цели, задачи, принципы.
-  \item Роль БКБН в продвижении новых стандартов регулирования.
-  \item Стандарт корпоративного управления в банках: рекомендации БКБН и российская практика.
-  \item Стандарт управления банковским капиталом: основные нормативы и показатели. Рекомендации БКБН и российская практика.
-  \item Управление кредитным риском на основе подхода оценки внутренних рейтингов (IRB Approach).
-  \item Управление риском ликвидности: основные нормативы и показатели.
-  \item Рекомендации БКБН и российская практика управления ликвидностью.
-  \item Управление рыночным риском: основные нормативы и показатели.
-  \item Рекомендации БКБН и российская практика управления рыночным риском.
-  \item Подходы к измерению операционного риска: рекомендации БКБН и российская практика.
-\end{enumerate}
-
-\clearpage
-
-% (Здесь по аналогии можно сделать страницу "вопросы" с SetQuestionHeader{...}{topics:std})
-
-% ======================================================
-% 3. СТРАТЕГИИ И СОВРЕМЕННАЯ МОДЕЛЬ УПРАВЛЕНИЯ В СФЕРЕ ДЕНЕЖНО-КРЕДИТНЫХ ОТНОШЕНИЙ
-% ======================================================
-
-\SetDefaultHeader
-\section*{Стратегии и современная модель управления в сфере денежно-кредитных отношений}
-\phantomsection
-\addcontentsline{toc}{section}{Стратегии и современная модель управления в сфере денежно-кредитных отношений}
-\label{topics:strat}
-
-\textbf{Темы (вопросы):}
-\begin{enumerate}
-  \item Роль центрального банка в регулировании денежно-кредитных отношений и развитии банковского сектора.
-  \item Особенности стратегии банков с государственным участием в период кризиса и посткризисного развития.
-  \item Особенности стратегии кредитования банками с иностранным участием.
-  \item Стратегия развития региональной банковской системы и её роль в развитии региональной экономики.
-  \item Приоритеты в развитии кредитования экономических субъектов.
-  \item Направления совершенствования управления кредитом.
-  \item Понятие, содержание и признаки кредитной экспансии.
-  \item Классификация кредитной экспансии.
-  \item Содержание модели управления кредитом в экономике.
-  \item Стратегия развития региональных банков.
-  \item Особенности монетарной политики центрального банка в современных условиях.
-  \item Стратегии управления денежно-кредитными отношениями в современных условиях.
-\end{enumerate}
-
-
-\clearpage
+% --- БЛОКИ ---
+\input{blocks/finmk.tex}
+% \input{blocks/std.tex}
+% \input{blocks/strat.tex}
+% дальше по списку:
+% \input{blocks/port.tex}
+% \input{blocks/fe.tex}
+% ...
 
 \end{document}

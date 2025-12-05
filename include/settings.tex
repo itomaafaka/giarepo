@@ -1,0 +1,80 @@
+% include/settings.tex
+
+% --------- ПОЛЯ ---------
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+% --------- ЯЗЫКИ ---------
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+% --------- ШРИФТЫ ---------
+\usepackage{fontspec}
+
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+\newfontfamily\OpenSans{Open Sans}[Ligatures=TeX, Scale=1]
+
+% --------- ИНТЕРВАЛЫ / ВЫРАВНИВАНИЕ ---------
+\usepackage{setspace}
+\singlespacing
+\usepackage{ragged2e}
+\justifying
+
+% --------- ЦВЕТА / ССЫЛКИ ---------
+\usepackage{xcolor}
+\definecolor{handbookblue}{HTML}{003366}
+\definecolor{linkorange}{HTML}{E67E22}
+
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+
+% --------- ОГЛАВЛЕНИЕ ---------
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\sffamily\bfseries\Huge}
+\renewcommand{\cftaftertoctitle}{\par\vskip1em}
+\renewcommand{\cftsecfont}{\sffamily\bfseries}
+\renewcommand{\cftsecpagefont}{\sffamily\bfseries}
+\setlength{\cftbeforesecskip}{0.5em}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsecnumwidth}{0pt}
+\renewcommand{\cftsecleader}{\hfill}
+
+% --------- ЗАГОЛОВКИ ---------
+\usepackage{titlesec}
+\titleformat{\section}
+  {\OpenSans\normalsize\bfseries\centering}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{1.5ex plus 0.5ex}{1ex plus 0.2ex}
+
+% --------- КОЛОНТИТУЛЫ / НАВИГАЦИЯ ---------
+\usepackage{fancyhdr}
+\pagestyle{plain}
+
+\newcommand{\SetDefaultHeader}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+}
+
+\newcommand{\SetQuestionHeader}[2]{%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+  \fancyhead[C]{%
+    \makebox[\textwidth]{%
+      \parbox[t]{0.5\textwidth}{%
+        \raggedright\small #1%
+      }%
+      \parbox[t]{0.5\textwidth}{%
+        \raggedleft\small
+        \textcolor{linkorange}{\hyperref[#2]{Назад к разделу}}\\[-0.2em]
+        \textcolor{linkorange}{\hyperref[toc-anchor]{К содержанию}}%
+      }%
+    }%
+  }%
+}
