@@ -1,7 +1,7 @@
 % include/settings.tex
 
 % --------- ПОЛЯ ---------
-\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[a4paper, left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
 
 % --------- ЯЗЫКИ ---------
 \usepackage{polyglossia}
@@ -19,7 +19,7 @@
 
 % --------- ИНТЕРВАЛЫ / ВЫРАВНИВАНИЕ ---------
 \usepackage{setspace}
-\singlespacing
+\linespread{1}
 \usepackage{ragged2e}
 \justifying
 
@@ -78,3 +78,8 @@
     }%
   }%
 }
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\newtcbtheorem[no counter]{mytheo}{Определение}%
+{colback=orange!5,colframe=linkorange!75!black,fonttitle=\bfseries}{th}
